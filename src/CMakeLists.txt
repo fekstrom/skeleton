@@ -1,0 +1,59 @@
+add_library(Skeleton_Skeleton "")
+add_library(Skeleton::Skeleton ALIAS Skeleton_Skeleton)
+set_target_properties(Skeleton_Skeleton PROPERTIES EXPORT_NAME Skeleton)
+
+target_sources(Skeleton_Skeleton PRIVATE
+  skeleton/build_information.cpp
+  skeleton/build_information.h
+  skeleton/version.h.in
+)
+target_include_directories(Skeleton_Skeleton PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+)
+target_link_libraries(Skeleton_Skeleton
+PRIVATE
+  $<BUILD_INTERFACE:Skeleton::CompilerWarnings>
+PUBLIC
+  Eigen3::Eigen
+)
+
+configure_file(skeleton/version.h.in skeleton/version.h @ONLY)
+
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/skeleton/SkeletonConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfig.cmake
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
+)
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfigVersion.cmake
+  VERSION ${Skeleton_VERSION}
+  COMPATIBILITY ExactVersion # No promises about compatibility while major version is 0.
+)
+
+install(TARGETS Skeleton_Skeleton
+  EXPORT SkeletonExport
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+install(EXPORT SkeletonExport
+  NAMESPACE Skeleton::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
+)
+install(DIRECTORY skeleton
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  FILES_MATCHING
+  PATTERN build_internal* EXCLUDE
+  PATTERN *.h
+)
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/skeleton/version.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/skeleton
+)
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfig.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfigVersion.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
+)

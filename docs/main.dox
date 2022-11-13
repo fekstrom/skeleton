@@ -1,0 +1,8 @@
+/// @mainpage Skeleton
+///
+/// Welcome to the Skeleton API documentation.
+
+/// Skeleton is contained in the `skeleton` namespace.
+namespace skeleton {}
+
+/// @file build_information.h
