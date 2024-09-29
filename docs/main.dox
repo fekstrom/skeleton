@@ -5,4 +5,4 @@
 /// Skeleton is contained in the `skeleton` namespace.
 namespace skeleton {}
 
-/// @file build_information.h
+/// @file build_information.hpp

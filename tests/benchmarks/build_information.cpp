@@ -1,4 +1,4 @@
-#include "skeleton/build_information.h"
+#include "skeleton/build_information.hpp"
 
 #include <benchmark/benchmark.h>
 

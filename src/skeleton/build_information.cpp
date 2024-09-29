@@ -1,6 +1,6 @@
-#include "skeleton/build_information.h"
+#include "skeleton/build_information.hpp"
 
-#include "skeleton/version.h"
+#include "skeleton/version.hpp"
 
 #include <Eigen/Core>
 
