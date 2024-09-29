@@ -11,6 +11,7 @@
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo",
                 "SKELETON_BUILD_BENCHMARKS": "ON",
                 "SKELETON_BUILD_DOCUMENTATION": "ON",
+                "SKELETON_BUILD_EXAMPLES": "ON",
                 "SKELETON_BUILD_FUZZ_TESTS": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
                 "SKELETON_ENABLE_COMPILER_WARNINGS": "ON",
