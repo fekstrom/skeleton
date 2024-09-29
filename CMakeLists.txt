@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.30)
 project(Skeleton VERSION 0.0.1)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+if(PROJECT_IS_TOP_LEVEL)
   enable_testing()
 endif()
 
