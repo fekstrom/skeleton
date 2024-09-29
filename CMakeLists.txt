@@ -28,8 +28,6 @@ if(SKELETON_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
 
-find_package(Eigen3 3.3 REQUIRED CONFIG)
-
 add_subdirectory(src)
 add_subdirectory(tests)
 

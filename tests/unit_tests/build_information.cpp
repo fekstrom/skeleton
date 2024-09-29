@@ -14,14 +14,6 @@ TEST_CASE("Version")
     REQUIRE(!Version().empty());
 }
 
-TEST_CASE("EigenVersion")
-{
-    REQUIRE(EigenWorldVersion() >= 0);
-    REQUIRE(EigenMajorVersion() >= 0);
-    REQUIRE(EigenMinorVersion() >= 0);
-    REQUIRE(!EigenVersion().empty());
-}
-
 TEST_CASE("BuildInformation")
 {
     REQUIRE(!BuildInformation().empty());

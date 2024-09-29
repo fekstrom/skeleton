@@ -2,8 +2,6 @@
 
 #include "skeleton/version.hpp"
 
-#include <Eigen/Core>
-
 #include <sstream>
 
 namespace skeleton
@@ -33,35 +31,10 @@ std::string Version()
     return ss.str();
 }
 
-int EigenWorldVersion()
-{
-    return EIGEN_WORLD_VERSION +0;
-}
-
-int EigenMajorVersion()
-{
-    return EIGEN_MAJOR_VERSION +0;
-}
-
-int EigenMinorVersion()
-{
-    return EIGEN_MINOR_VERSION +0;
-}
-
-std::string EigenVersion()
-{
-    auto ss = std::ostringstream{};
-    ss << EigenWorldVersion() << "."
-       << EigenMajorVersion() << "."
-       << EigenMinorVersion();
-    return ss.str();
-}
-
 std::string BuildInformation()
 {
     auto ss = std::ostringstream{};
-    ss << "Skeleton Version " << Version() << "\n"
-       << "Built with Eigen " << EigenVersion();
+    ss << "Skeleton Version " << Version();
     return ss.str();
 }
 

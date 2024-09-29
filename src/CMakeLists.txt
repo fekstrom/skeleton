@@ -14,8 +14,6 @@ target_sources(Skeleton_Skeleton
 target_link_libraries(Skeleton_Skeleton
   PRIVATE
     $<BUILD_INTERFACE:Skeleton::CompilerWarnings>
-  PUBLIC
-    Eigen3::Eigen
 )
 
 if(SKELETON_ENABLE_INSTALL)
