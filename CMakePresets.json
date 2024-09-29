@@ -9,6 +9,7 @@
             "installDir": "${sourceDir}/install",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "SKELETON_BUILD_BENCHMARKS": "ON",
                 "SKELETON_BUILD_DOCUMENTATION": "ON",
                 "SKELETON_BUILD_EXAMPLES": "ON",
@@ -26,6 +27,7 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -O3",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
                 "SKELETON_ENABLE_COMPILER_WARNINGS": "ON"
             }
@@ -38,6 +40,7 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_CLANG_TIDY": "clang-tidy-12;-header-filter=${sourceDir}/src/",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "SKELETON_BUILD_BENCHMARKS": "ON",
                 "SKELETON_BUILD_FUZZ_TESTS": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
@@ -55,6 +58,7 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined,fuzzer-no-link -O3",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "SKELETON_BUILD_FUZZ_TESTS": "ON",
                 "SKELETON_ENABLE_COMPILER_WARNINGS": "ON"
             }
