@@ -5,11 +5,10 @@ set_target_properties(Skeleton_Skeleton PROPERTIES EXPORT_NAME Skeleton)
 target_sources(Skeleton_Skeleton PRIVATE
   skeleton/build_information.cpp
   skeleton/build_information.h
-  skeleton/version.h.in
+  skeleton/version.h
 )
 target_include_directories(Skeleton_Skeleton PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )
 target_link_libraries(Skeleton_Skeleton
 PRIVATE
@@ -17,8 +16,6 @@ PRIVATE
 PUBLIC
   Eigen3::Eigen
 )
-
-configure_file(skeleton/version.h.in skeleton/version.h @ONLY)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -47,10 +44,6 @@ install(DIRECTORY skeleton
   FILES_MATCHING
   PATTERN build_internal* EXCLUDE
   PATTERN *.h
-)
-install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/skeleton/version.h
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/skeleton
 )
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfig.cmake
