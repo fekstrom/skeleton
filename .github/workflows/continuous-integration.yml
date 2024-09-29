@@ -1,0 +1,54 @@
+name: Continuous integration
+
+on:
+  - push
+
+jobs:
+  dev:
+    strategy:
+      matrix:
+        runner: [ubuntu-22.04, windows-2022, macos-14]
+
+    runs-on: ${{ matrix.runner }}
+
+    env:
+      DEPENDENCIES_DIR: ${{ github.workspace }}/../dependencies
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Create dependencies directory
+      run: |
+        mkdir -p ${{ env.DEPENDENCIES_DIR }}
+
+    - name: Install Catch2
+      working-directory: ${{ env.DEPENDENCIES_DIR }}
+      run: |
+        git clone https://github.com/catchorg/Catch2.git
+        cd Catch2
+        git checkout v3.6.0
+        cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
+        cmake --build build --config Release
+        cmake --install build --prefix ${{ env.DEPENDENCIES_DIR }}/install
+
+    - name: Build
+      run: |
+        cmake --preset dev -D CMAKE_BUILD_TYPE=RelWithDebInfo -D SKELETON_BUILD_DOCUMENTATION=OFF -D SKELETON_ENABLE_INSTALL=OFF
+        cmake --build build --config RelWithDebInfo
+      env:
+        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install
+
+    - name: Check that install is disabled
+      run: |
+        cmake --install build --config RelWithDebInfo --prefix install
+        mkdir install
+
+    - name: Test
+      run: |
+        ctest --test-dir build --build-config RelWithDebInfo --output-on-failure
+
+    - name: User test
+      run: |
+        cmake -P tools/user_test.cmake
+      env:
+        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install

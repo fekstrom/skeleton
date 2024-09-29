@@ -42,6 +42,10 @@ execute_command(
     ${USER_TEST_DIR}
     ${CMAKE_COMMAND} --build examples --config Release -j 8
 )
+execute_command(
+    ${USER_TEST_DIR}
+    ${CMAKE_CTEST_COMMAND} --test-dir examples --build-config Release --output-on-failure
+)
 
 message(STATUS "Success!")
 message(STATUS "The examples are built in ${USER_TEST_DIR}/examples")
