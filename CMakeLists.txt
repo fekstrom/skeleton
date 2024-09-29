@@ -19,6 +19,7 @@ option(SKELETON_BUILD_EXAMPLES "Build examples" OFF)
 option(SKELETON_BUILD_DOCUMENTATION "Build documentation" OFF)
 option(SKELETON_BUILD_FUZZ_TESTS "Build fuzz tests" OFF)
 option(SKELETON_BUILD_UNIT_TESTS "Build unit tests" OFF)
+option(SKELETON_ENABLE_INSTALL "Enable CMake install for Skeleton" ON)
 
 if(SKELETON_BUILD_DOCUMENTATION)
   add_subdirectory(docs)
@@ -32,3 +33,30 @@ find_package(Eigen3 3.3 REQUIRED CONFIG)
 
 add_subdirectory(src)
 add_subdirectory(tests)
+
+if(SKELETON_ENABLE_INSTALL)
+  install(EXPORT SkeletonTargets
+    NAMESPACE Skeleton::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
+  )
+
+  include(GNUInstallDirs)
+  include(CMakePackageConfigHelpers)
+
+  configure_package_config_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/SkeletonConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfig.cmake
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
+    NO_SET_AND_CHECK_MACRO
+  )
+  write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfigVersion.cmake
+    VERSION ${Skeleton_VERSION}
+    COMPATIBILITY ExactVersion # No promises about compatibility while major version is 0.
+  )
+  install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfigVersion.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
+  )
+endif()
