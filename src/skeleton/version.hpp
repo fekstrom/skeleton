@@ -1,0 +1,8 @@
+#ifndef SKELETON_VERSION_H_
+#define SKELETON_VERSION_H_
+
+#define SKELETON_VERSION_MAJOR 0
+#define SKELETON_VERSION_MINOR 0
+#define SKELETON_VERSION_PATCH 1
+
+#endif // Include guard

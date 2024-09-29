@@ -1,0 +1,9 @@
+@PACKAGE_INIT@
+
+include(${CMAKE_CURRENT_LIST_DIR}/SkeletonTargets.cmake)
+
+check_required_components(Skeleton)
+
+if(NOT Skeleton_FIND_QUIETLY)
+    message(STATUS "Found Skeleton: ${CMAKE_CURRENT_LIST_DIR}")
+endif()

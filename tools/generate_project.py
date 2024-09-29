@@ -3,6 +3,7 @@
 import argparse
 import re
 import os
+import shutil
 import sys
 
 def to_camel_case(name):
@@ -37,6 +38,7 @@ def transform_file(src, dst, output_name):
   os.makedirs(os.path.dirname(dst), exist_ok=True)
   with open(dst, 'w') as f:
     f.write(outtext)
+  shutil.copymode(src, dst)
 
 def create_skeleton(input_root, output_parent, output_name, force = False):
   input_root = os.path.abspath(input_root)
@@ -48,10 +50,13 @@ def create_skeleton(input_root, output_parent, output_name, force = False):
   ignored = [
     '.git/',
     '__pycache__',
+    '.cache/',
     '.vscode/',
     'build/',
     'install/',
+    'user_test/',
     'tools/generate_project.py',
+    'CMakeUserPresets.json',
     'core',
   ]
 

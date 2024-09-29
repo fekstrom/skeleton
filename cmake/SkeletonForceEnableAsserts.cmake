@@ -1,4 +1,4 @@
-option(SKELETON_FORCE_ENABLE_ASSERTS OFF "Enable asserts, overriding CMake's default")
+option(SKELETON_FORCE_ENABLE_ASSERTS "Enable asserts, overriding CMake's default" OFF)
 
 if(NOT SKELETON_FORCE_ENABLE_ASSERTS)
   return()

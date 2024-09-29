@@ -9,49 +9,27 @@
             "installDir": "${sourceDir}/install",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-                "SKELETON_BUILD_BENCHMARKS": "ON",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "SKELETON_BUILD_DOCUMENTATION": "ON",
-                "SKELETON_BUILD_FUZZ_TESTS": "ON",
+                "SKELETON_BUILD_EXAMPLES": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
+                "SKELETON_ENABLE_COMPILER_WARNINGS": "ON",
                 "SKELETON_FORCE_ENABLE_ASSERTS": "ON"
             }
         },
         {
             "name": "sanitizer-tests",
             "displayName": "Sanitizer tests",
-            "description": "Build unit tests with sanitizers",
+            "description": "Build unit tests with sanitizers (requires GCC or Clang)",
             "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -O3",
-                "SKELETON_BUILD_UNIT_TESTS": "ON"
-            }
-        },
-        {
-            "name": "static-checks",
-            "displayName": "Static checks",
-            "description": "Static checks with clang-tidy",
-            "binaryDir": "${sourceDir}/build",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_CXX_CLANG_TIDY": "clang-tidy-12;-header-filter=${sourceDir}/src/",
-                "SKELETON_BUILD_BENCHMARKS": "ON",
-                "SKELETON_BUILD_FUZZ_TESTS": "ON",
-                "SKELETON_BUILD_UNIT_TESTS": "ON"
-            }
-        },
-        {
-            "name": "fuzz-tests",
-            "displayName": "Fuzz tests",
-            "description": "Build fuzz tests with sanitizers and fuzzer instrumentation",
-            "binaryDir": "${sourceDir}/build",
-            "environment": {
-                "CXX": "clang++-12"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined,fuzzer-no-link -O3",
-                "SKELETON_BUILD_FUZZ_TESTS": "ON"
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "SKELETON_BUILD_EXAMPLES": "ON",
+                "SKELETON_BUILD_UNIT_TESTS": "ON",
+                "SKELETON_ENABLE_COMPILER_WARNINGS": "ON",
+                "SKELETON_FORCE_ENABLE_ASSERTS": "ON"
             }
         }
     ]

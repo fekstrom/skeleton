@@ -1,4 +1,4 @@
-#include "skeleton/build_information.h"
+#include "skeleton/build_information.hpp"
 
 #include <catch2/catch_test_macros.hpp>
 
@@ -12,14 +12,6 @@ TEST_CASE("Version")
     REQUIRE(VersionMinor() >= 0);
     REQUIRE(VersionPatch() >= 0);
     REQUIRE(!Version().empty());
-}
-
-TEST_CASE("EigenVersion")
-{
-    REQUIRE(EigenWorldVersion() >= 0);
-    REQUIRE(EigenMajorVersion() >= 0);
-    REQUIRE(EigenMinorVersion() >= 0);
-    REQUIRE(!EigenVersion().empty());
 }
 
 TEST_CASE("BuildInformation")
