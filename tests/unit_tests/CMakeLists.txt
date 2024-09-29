@@ -1,4 +1,4 @@
-find_package(Catch2 3 REQUIRED)
+find_package(Catch2 3.6 REQUIRED)
 
 add_executable(unit_tests "")
 target_sources(unit_tests PRIVATE
