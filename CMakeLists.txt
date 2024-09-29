@@ -3,12 +3,11 @@ cmake_minimum_required(VERSION 3.30)
 project(Skeleton VERSION 0.0.1)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
+include(SkeletonCxxStandard)
+
 if(PROJECT_IS_TOP_LEVEL)
   enable_testing()
 endif()
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(SkeletonCompilerWarnings)
 include(SkeletonDefaultBuildType)
