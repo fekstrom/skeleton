@@ -18,7 +18,6 @@ include(SkeletonOutputDirectories)
 option(SKELETON_BUILD_BENCHMARKS "Build benchmarks" OFF)
 option(SKELETON_BUILD_EXAMPLES "Build examples" OFF)
 option(SKELETON_BUILD_DOCUMENTATION "Build documentation" OFF)
-option(SKELETON_BUILD_FUZZ_TESTS "Build fuzz tests" OFF)
 option(SKELETON_BUILD_UNIT_TESTS "Build unit tests" OFF)
 option(SKELETON_ENABLE_INSTALL "Enable CMake install for Skeleton" ON)
 

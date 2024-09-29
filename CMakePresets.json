@@ -13,7 +13,6 @@
                 "SKELETON_BUILD_BENCHMARKS": "ON",
                 "SKELETON_BUILD_DOCUMENTATION": "ON",
                 "SKELETON_BUILD_EXAMPLES": "ON",
-                "SKELETON_BUILD_FUZZ_TESTS": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
                 "SKELETON_ENABLE_COMPILER_WARNINGS": "ON",
                 "SKELETON_FORCE_ENABLE_ASSERTS": "ON"
@@ -42,24 +41,7 @@
                 "CMAKE_CXX_CLANG_TIDY": "clang-tidy-12;-header-filter=${sourceDir}/src/",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "SKELETON_BUILD_BENCHMARKS": "ON",
-                "SKELETON_BUILD_FUZZ_TESTS": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
-                "SKELETON_ENABLE_COMPILER_WARNINGS": "ON"
-            }
-        },
-        {
-            "name": "fuzz-tests",
-            "displayName": "Fuzz tests",
-            "description": "Build fuzz tests with sanitizers and fuzzer instrumentation",
-            "binaryDir": "${sourceDir}/build",
-            "environment": {
-                "CXX": "clang++-12"
-            },
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined,fuzzer-no-link -O3",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-                "SKELETON_BUILD_FUZZ_TESTS": "ON",
                 "SKELETON_ENABLE_COMPILER_WARNINGS": "ON"
             }
         }
