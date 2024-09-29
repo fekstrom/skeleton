@@ -6,7 +6,8 @@
 
 using namespace skeleton;
 
-static void BmBuildInformation(benchmark::State& state) {
+static void BmBuildInformation(benchmark::State& state)
+{
     for (auto _ : state)
     {
         const auto info = BuildInformation();

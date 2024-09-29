@@ -3,7 +3,8 @@
 
 #include <string>
 
-namespace skeleton {
+namespace skeleton
+{
 
 /// @return The `major` component of the Skeleton version.
 int VersionMajor();

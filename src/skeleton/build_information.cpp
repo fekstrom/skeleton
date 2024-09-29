@@ -6,7 +6,8 @@
 
 #include <sstream>
 
-namespace skeleton {
+namespace skeleton
+{
 
 int VersionMajor()
 {
