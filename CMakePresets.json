@@ -13,6 +13,7 @@
                 "SKELETON_BUILD_DOCUMENTATION": "ON",
                 "SKELETON_BUILD_FUZZ_TESTS": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
+                "SKELETON_ENABLE_COMPILER_WARNINGS": "ON",
                 "SKELETON_FORCE_ENABLE_ASSERTS": "ON"
             }
         },
@@ -24,7 +25,8 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -O3",
-                "SKELETON_BUILD_UNIT_TESTS": "ON"
+                "SKELETON_BUILD_UNIT_TESTS": "ON",
+                "SKELETON_ENABLE_COMPILER_WARNINGS": "ON"
             }
         },
         {
@@ -37,7 +39,8 @@
                 "CMAKE_CXX_CLANG_TIDY": "clang-tidy-12;-header-filter=${sourceDir}/src/",
                 "SKELETON_BUILD_BENCHMARKS": "ON",
                 "SKELETON_BUILD_FUZZ_TESTS": "ON",
-                "SKELETON_BUILD_UNIT_TESTS": "ON"
+                "SKELETON_BUILD_UNIT_TESTS": "ON",
+                "SKELETON_ENABLE_COMPILER_WARNINGS": "ON"
             }
         },
         {
@@ -51,7 +54,8 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined,fuzzer-no-link -O3",
-                "SKELETON_BUILD_FUZZ_TESTS": "ON"
+                "SKELETON_BUILD_FUZZ_TESTS": "ON",
+                "SKELETON_ENABLE_COMPILER_WARNINGS": "ON"
             }
         }
     ]
