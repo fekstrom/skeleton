@@ -10,7 +10,6 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-                "SKELETON_BUILD_BENCHMARKS": "ON",
                 "SKELETON_BUILD_DOCUMENTATION": "ON",
                 "SKELETON_BUILD_EXAMPLES": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
@@ -40,7 +39,6 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_CLANG_TIDY": "clang-tidy-12;-header-filter=${sourceDir}/src/",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-                "SKELETON_BUILD_BENCHMARKS": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
                 "SKELETON_ENABLE_COMPILER_WARNINGS": "ON"
             }

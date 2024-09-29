@@ -15,7 +15,6 @@ include(SkeletonDefaultBuildType)
 include(SkeletonForceEnableAsserts)
 include(SkeletonOutputDirectories)
 
-option(SKELETON_BUILD_BENCHMARKS "Build benchmarks" OFF)
 option(SKELETON_BUILD_EXAMPLES "Build examples" OFF)
 option(SKELETON_BUILD_DOCUMENTATION "Build documentation" OFF)
 option(SKELETON_BUILD_UNIT_TESTS "Build unit tests" OFF)
