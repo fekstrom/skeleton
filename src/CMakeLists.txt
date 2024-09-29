@@ -1,6 +1,9 @@
 add_library(Skeleton_Skeleton "")
 add_library(Skeleton::Skeleton ALIAS Skeleton_Skeleton)
-set_target_properties(Skeleton_Skeleton PROPERTIES EXPORT_NAME Skeleton)
+set_target_properties(Skeleton_Skeleton PROPERTIES
+  OUTPUT_NAME SkeletonSkeleton
+  EXPORT_NAME Skeleton
+)
 
 target_sources(Skeleton_Skeleton
   PRIVATE
