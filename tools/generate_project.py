@@ -31,9 +31,12 @@ def transform_path(src, output_name):
   return transform_text(src, output_name)
 
 def transform_file(src, dst, output_name):
-  intext = ''
   with open(src) as f:
-    intext = f.read()
+    try:
+      intext = f.read()
+    except Exception:
+      print(f'could not read file: {src}', file=sys.stderr)
+      raise
   outtext = transform_text(intext, output_name)
   os.makedirs(os.path.dirname(dst), exist_ok=True)
   with open(dst, 'w') as f:
