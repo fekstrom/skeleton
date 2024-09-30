@@ -22,18 +22,46 @@ class OutputName:
     self.snake_case = to_snake_case(name)
     self.upper_case = to_upper_case(name)
 
+def remove_skips(src):
+  src_lines = src.splitlines()
+  dst_lines = []
+  skip = False
+
+  for line in src_lines:
+    if "SKELETON_GENERATE_PROJECT_SKIP_BEGIN" in line:
+      if skip:
+        raise ValueError("Found SKIP_BEGIN while looking for SKIP_END")
+      skip = True
+    elif "SKELETON_GENERATE_PROJECT_SKIP_END" in line:
+      if not skip:
+        raise ValueError("Found SKIP_END without preceeding SKIP_BEGIN")
+      skip = False
+    elif not skip:
+      dst_lines.append(line)
+
+  if skip:
+    raise ValueError("Reached end of file while looking for SKIP_END")
+
+  return "\n".join(dst_lines)
+
 def transform_text(src, output_name):
-  return src.replace('Skeleton', output_name.camel_case) \
-            .replace('skeleton', output_name.snake_case) \
-            .replace('SKELETON', output_name.upper_case)
+  return (
+    remove_skips(src)
+    .replace('Skeleton', output_name.camel_case)
+    .replace('skeleton', output_name.snake_case)
+    .replace('SKELETON', output_name.upper_case)
+  )
 
 def transform_path(src, output_name):
   return transform_text(src, output_name)
 
 def transform_file(src, dst, output_name):
-  intext = ''
   with open(src) as f:
-    intext = f.read()
+    try:
+      intext = f.read()
+    except Exception:
+      print(f'could not read file: {src}', file=sys.stderr)
+      raise
   outtext = transform_text(intext, output_name)
   os.makedirs(os.path.dirname(dst), exist_ok=True)
   with open(dst, 'w') as f:
@@ -47,25 +75,28 @@ def create_skeleton(input_root, output_parent, output_name, force = False):
     print('The output root {} already exists. Use force to overwrite.'.format(output_root))
     return
 
-  ignored = [
-    '.git/',
-    '__pycache__',
-    '.cache/',
-    '.vscode/',
-    'build/',
-    'install/',
-    'user_test/',
-    'tools/generate_project.py',
-    'CMakeUserPresets.json',
-    'core',
+  ignored_directories = [
+    r'[.]git([^h]|$)', # Ignore .git but not .github
+    r'__pycache__',
+    r'[.]cache',
+    r'[.]vscode',
+    r'build',
+    r'install',
+    r'user_test',
+  ]
+
+  ignored_files = [
+    r'CMakeUserPresets[.]json',
+    r'core',
+    r'generate_project[.]py',
   ]
 
   for dirpath, dirnames, filenames in os.walk(input_root):
-    if any([re.search(i, dirpath + '/') for i in ignored]):
+    if any([re.search(i, dirpath) for i in ignored_directories]):
       continue
     for filename in filenames:
       src = os.path.join(dirpath, filename)
-      if any([re.search(i, src) for i in ignored]):
+      if any([re.search(i, src) for i in ignored_files]):
         continue
       tmp = transform_path(os.path.relpath(dirpath, input_root), output_name)
       dst = os.path.join(output_root, tmp, transform_path(filename, output_name))
