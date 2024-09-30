@@ -50,25 +50,28 @@ def create_skeleton(input_root, output_parent, output_name, force = False):
     print('The output root {} already exists. Use force to overwrite.'.format(output_root))
     return
 
-  ignored = [
-    '.git/',
-    '__pycache__',
-    '.cache/',
-    '.vscode/',
-    'build/',
-    'install/',
-    'user_test/',
-    'tools/generate_project.py',
-    'CMakeUserPresets.json',
-    'core',
+  ignored_directories = [
+    r'[.]git([^h]|$)', # Ignore .git but not .github
+    r'__pycache__',
+    r'[.]cache',
+    r'[.]vscode',
+    r'build',
+    r'install',
+    r'user_test',
+  ]
+
+  ignored_files = [
+    r'CMakeUserPresets[.]json',
+    r'core',
+    r'generate_project[.]py',
   ]
 
   for dirpath, dirnames, filenames in os.walk(input_root):
-    if any([re.search(i, dirpath + '/') for i in ignored]):
+    if any([re.search(i, dirpath) for i in ignored_directories]):
       continue
     for filename in filenames:
       src = os.path.join(dirpath, filename)
-      if any([re.search(i, src) for i in ignored]):
+      if any([re.search(i, src) for i in ignored_files]):
         continue
       tmp = transform_path(os.path.relpath(dirpath, input_root), output_name)
       dst = os.path.join(output_root, tmp, transform_path(filename, output_name))
