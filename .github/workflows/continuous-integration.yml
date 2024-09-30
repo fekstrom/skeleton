@@ -53,6 +53,7 @@ jobs:
       env:
         CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install
 
+  # SKELETON_GENERATE_PROJECT_SKIP_BEGIN
   generate-project:
     strategy:
       matrix:
@@ -111,3 +112,4 @@ jobs:
         cmake -P tools/user_test.cmake
       env:
         CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install
+  # SKELETON_GENERATE_PROJECT_SKIP_END

@@ -22,10 +22,35 @@ class OutputName:
     self.snake_case = to_snake_case(name)
     self.upper_case = to_upper_case(name)
 
+def remove_skips(src):
+  src_lines = src.splitlines()
+  dst_lines = []
+  skip = False
+
+  for line in src_lines:
+    if "SKELETON_GENERATE_PROJECT_SKIP_BEGIN" in line:
+      if skip:
+        raise ValueError("Found SKIP_BEGIN while looking for SKIP_END")
+      skip = True
+    elif "SKELETON_GENERATE_PROJECT_SKIP_END" in line:
+      if not skip:
+        raise ValueError("Found SKIP_END without preceeding SKIP_BEGIN")
+      skip = False
+    elif not skip:
+      dst_lines.append(line)
+
+  if skip:
+    raise ValueError("Reached end of file while looking for SKIP_END")
+
+  return "\n".join(dst_lines)
+
 def transform_text(src, output_name):
-  return src.replace('Skeleton', output_name.camel_case) \
-            .replace('skeleton', output_name.snake_case) \
-            .replace('SKELETON', output_name.upper_case)
+  return (
+    remove_skips(src)
+    .replace('Skeleton', output_name.camel_case)
+    .replace('skeleton', output_name.snake_case)
+    .replace('SKELETON', output_name.upper_case)
+  )
 
 def transform_path(src, output_name):
   return transform_text(src, output_name)
