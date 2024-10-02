@@ -41,7 +41,7 @@ jobs:
     - name: Check that install is disabled
       run: |
         cmake --install build --config RelWithDebInfo --prefix install
-        mkdir install
+        python -c "import os; assert not os.path.exists('install'), 'install exists even though ENABLE_INSTALL=OFF';"
 
     - name: Test
       run: |
@@ -99,7 +99,7 @@ jobs:
       working-directory: ${{ env.MY_PROJECT_DIR }}/my_project
       run: |
         cmake --install build --config RelWithDebInfo --prefix install
-        mkdir install
+        python -c "import os; assert not os.path.exists('install'), 'install exists even though ENABLE_INSTALL=OFF';"
 
     - name: Test
       working-directory: ${{ env.MY_PROJECT_DIR }}/my_project
