@@ -85,7 +85,7 @@ jobs:
 
     - name: Generate MyProject
       run: |
-        python tools/generate_project.py MyProject --output_parent ${{ env.MY_PROJECT_DIR }}
+        python tools/generate_project.py MyProject --parent_directory ${{ env.MY_PROJECT_DIR }}
 
     - name: Build
       working-directory: ${{ env.MY_PROJECT_DIR }}/my_project
