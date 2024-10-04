@@ -104,10 +104,10 @@ def create_skeleton(input_root, output_parent, output_name, force = False):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
-  parser.add_argument('output_name', help='Name of the library to create, in snake_case or CamelCase.')
-  parser.add_argument('--output_parent', default='.', help='Parent directory of the output root (defaults to .).')
-  parser.add_argument('-f', '--force', action='store_true', help='Overwrite the output directory if it already exists.')
+  parser.add_argument('project_name', help='Name of the project to create, in snake_case or CamelCase.')
+  parser.add_argument('-p', '--parent_directory', default='.', help='Parent directory of the project root (defaults to .).')
+  parser.add_argument('-f', '--force', action='store_true', help='Overwrite the project if it already exists.')
   args = parser.parse_args()
 
-  input_root = os.path.dirname(os.path.dirname(sys.argv[0]))
-  create_skeleton(input_root, args.output_parent, OutputName(args.output_name), args.force)
+  skeleton_root = os.path.dirname(os.path.dirname(sys.argv[0]))
+  create_skeleton(skeleton_root, args.parent_directory, OutputName(args.project_name), args.force)
