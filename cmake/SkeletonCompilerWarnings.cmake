@@ -5,22 +5,33 @@ add_library(Skeleton_CompilerWarnings INTERFACE)
 add_library(Skeleton::CompilerWarnings ALIAS Skeleton_CompilerWarnings)
 
 if(SKELETON_ENABLE_COMPILER_WARNINGS)
-  target_compile_options(Skeleton_CompilerWarnings INTERFACE
-    $<$<CXX_COMPILER_ID:AppleClang,Clang,GNU>:
+  if(CMAKE_CXX_COMPILER_ID MATCHES "^(AppleClang|Clang|GNU)$")
+    target_compile_options(Skeleton_CompilerWarnings INTERFACE
       -Wall
       -Wextra
       -Wpedantic
       -Wconversion
-    >
-    $<$<CXX_COMPILER_ID:MSVC>:
+    )
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(Skeleton_CompilerWarnings INTERFACE
+      # Suppress warnings from headers included with <...>.
+      /experimental:external # Needed before MSVC 2019 version 16.10.
+      /external:anglebrackets
+      /external:W0
+      # Apply the following warnings.
       /W4
-    >
-  )
+    )
+  endif()
 endif()
 
 if(SKELETON_WARNINGS_AS_ERRORS)
-  target_compile_options(Skeleton_CompilerWarnings INTERFACE
-    $<$<CXX_COMPILER_ID:AppleClang,Clang,GNU>:-Werror>
-    $<$<CXX_COMPILER_ID:MSVC>:/WX>
-  )
+  if(CMAKE_CXX_COMPILER_ID MATCHES "^(AppleClang|Clang|GNU)$")
+    target_compile_options(Skeleton_CompilerWarnings INTERFACE
+      -Werror
+    )
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(Skeleton_CompilerWarnings INTERFACE
+      /WX
+    )
+  endif()
 endif()
