@@ -14,6 +14,7 @@ include(SkeletonCompilerWarnings)
 include(SkeletonDefaultBuildType)
 include(SkeletonForceEnableAsserts)
 include(SkeletonOutputDirectories)
+include(SkeletonUseSanitizers)
 
 option(SKELETON_BUILD_EXAMPLES "Build examples" OFF)
 option(SKELETON_BUILD_DOCUMENTATION "Build documentation" OFF)
