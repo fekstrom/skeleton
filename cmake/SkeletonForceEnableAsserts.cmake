@@ -1,12 +1,16 @@
-option(SKELETON_FORCE_ENABLE_ASSERTS "Enable asserts, overriding CMake's default" OFF)
+option(
+    SKELETON_FORCE_ENABLE_ASSERTS
+    "Enable asserts, overriding CMake's default"
+    OFF
+)
 
 if(NOT SKELETON_FORCE_ENABLE_ASSERTS)
-  return()
+    return()
 endif()
 
 macro(remove_dndebug flags)
-  string(REPLACE "-DNDEBUG" "" ${flags} "${${flags}}")
-  string(REPLACE "/DNDEBUG" "" ${flags} "${${flags}}")
+    string(REPLACE "-DNDEBUG" "" ${flags} "${${flags}}")
+    string(REPLACE "/DNDEBUG" "" ${flags} "${${flags}}")
 endmacro()
 
 remove_dndebug(CMAKE_CXX_FLAGS)
