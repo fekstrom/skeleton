@@ -113,3 +113,17 @@ jobs:
       env:
         CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install
   # SKELETON_GENERATE_PROJECT_SKIP_END
+  # SKELETON_GENERATE_PROJECT_SKIP_BEGIN
+  cmake-formatting:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install gersemi
+      run: |
+        pipx install gersemi
+
+    - name: Check formatting
+      run: |
+        gersemi --check --diff .
+  # SKELETON_GENERATE_PROJECT_SKIP_END
