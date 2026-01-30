@@ -16,7 +16,7 @@ if(PROJECT_IS_TOP_LEVEL)
         )
     endif()
 
-    find_package(Skeleton)
+    find_package(Skeleton REQUIRED)
 endif()
 
 add_subdirectory(src)
