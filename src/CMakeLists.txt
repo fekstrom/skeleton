@@ -9,7 +9,7 @@ target_sources(
     PRIVATE skeleton/build_information.cpp
     PUBLIC
         FILE_SET HEADERS
-        FILES skeleton/build_information.hpp skeleton/version.hpp
+            FILES skeleton/build_information.hpp skeleton/version.hpp
 )
 target_link_libraries(
     Skeleton_Skeleton
