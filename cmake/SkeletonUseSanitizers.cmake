@@ -9,11 +9,11 @@ if(NOT SKELETON_USE_SANITIZERS)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "^(AppleClang|Clang|GNU)$")
-    add_compile_options(
-        -fsanitize=address,undefined
-        -O2
-        -g
-        -fno-omit-frame-pointer
-    )
+    add_compile_options(-fsanitize=address,undefined -fno-omit-frame-pointer)
     add_link_options(-fsanitize=address,undefined)
+else()
+    message(
+        FATAL
+        "FLY_USE_SANITIZERS is ON but compiler '${CMAKE_CXX_COMPILER_ID}' is not supported."
+    )
 endif()

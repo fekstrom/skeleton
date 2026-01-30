@@ -9,7 +9,7 @@ target_sources(
     PRIVATE skeleton/build_information.cpp
     PUBLIC
         FILE_SET HEADERS
-        FILES skeleton/build_information.hpp skeleton/version.hpp
+            FILES skeleton/build_information.hpp skeleton/version.hpp
 )
 target_link_libraries(
     Skeleton_Skeleton
@@ -22,5 +22,10 @@ if(SKELETON_ENABLE_INSTALL)
         EXPORT SkeletonTargets
         FILE_SET HEADERS
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    )
+    install(
+        EXPORT SkeletonTargets
+        NAMESPACE Skeleton::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
     )
 endif()

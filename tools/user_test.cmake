@@ -1,4 +1,4 @@
-#!/usr/bin/env -S cmake -P
+#! /usr/bin/env -S cmake -P
 
 cmake_path(SET SKELETON_ROOT NORMALIZE ${CMAKE_CURRENT_LIST_DIR}/..)
 cmake_path(SET USER_TEST_DIR ${SKELETON_ROOT}/user_test)
@@ -22,25 +22,29 @@ execute_command(
     ${SKELETON_ROOT}
     ${CMAKE_COMMAND} -E make_directory ${USER_TEST_DIR}
 )
+
+# Build and install Skeleton.
 execute_command(
     ${USER_TEST_DIR}
     ${CMAKE_COMMAND} -S .. -B build -D CMAKE_BUILD_TYPE=Release
 )
 execute_command(
     ${USER_TEST_DIR}
-    ${CMAKE_COMMAND} --build build --config Release -j 8
+    ${CMAKE_COMMAND} --build build --config Release
 )
 execute_command(
     ${USER_TEST_DIR}
     ${CMAKE_COMMAND} --install build --prefix install
 )
+
+# Build examples against the installed Skeleton.
 execute_command(
     ${USER_TEST_DIR}
     ${CMAKE_COMMAND} -S ../examples -B examples -D CMAKE_BUILD_TYPE=Release -D CMAKE_PREFIX_PATH=${USER_TEST_DIR}/install
 )
 execute_command(
     ${USER_TEST_DIR}
-    ${CMAKE_COMMAND} --build examples --config Release -j 8
+    ${CMAKE_COMMAND} --build examples --config Release
 )
 execute_command(
     ${USER_TEST_DIR}
