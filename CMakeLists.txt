@@ -15,10 +15,16 @@ include(SkeletonForceEnableAsserts)
 include(SkeletonOutputDirectories)
 include(SkeletonUseSanitizers)
 
+include(GNUInstallDirs)
+
 option(SKELETON_BUILD_EXAMPLES "Build examples" OFF)
 option(SKELETON_BUILD_DOCUMENTATION "Build documentation" OFF)
 option(SKELETON_BUILD_UNIT_TESTS "Build unit tests" OFF)
-option(SKELETON_ENABLE_INSTALL "Enable CMake install for Skeleton" ON)
+option(
+    SKELETON_ENABLE_INSTALL
+    "Enable CMake install for Skeleton"
+    ${PROJECT_IS_TOP_LEVEL}
+)
 
 if(SKELETON_BUILD_DOCUMENTATION)
     add_subdirectory(docs)
@@ -32,15 +38,7 @@ add_subdirectory(src)
 add_subdirectory(tests)
 
 if(SKELETON_ENABLE_INSTALL)
-    install(
-        EXPORT SkeletonTargets
-        NAMESPACE Skeleton::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
-    )
-
-    include(GNUInstallDirs)
     include(CMakePackageConfigHelpers)
-
     configure_package_config_file(
         ${CMAKE_CURRENT_SOURCE_DIR}/cmake/SkeletonConfig.cmake.in
         ${CMAKE_CURRENT_BINARY_DIR}/cmake/SkeletonConfig.cmake

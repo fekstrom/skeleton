@@ -23,4 +23,9 @@ if(SKELETON_ENABLE_INSTALL)
         FILE_SET HEADERS
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     )
+    install(
+        EXPORT SkeletonTargets
+        NAMESPACE Skeleton::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Skeleton
+    )
 endif()
