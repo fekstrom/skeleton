@@ -11,7 +11,6 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(SkeletonCxxStandard)
 
 include(SkeletonCompilerWarnings)
-include(SkeletonDefaultBuildType)
 include(SkeletonForceEnableAsserts)
 include(SkeletonOutputDirectories)
 include(SkeletonUseSanitizers)
