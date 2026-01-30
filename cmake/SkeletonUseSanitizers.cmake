@@ -14,6 +14,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "^(AppleClang|Clang|GNU)$")
 else()
     message(
         FATAL
-        "FLY_USE_SANITIZERS is ON but compiler '${CMAKE_CXX_COMPILER_ID}' is not supported."
+        "SKELETON_USE_SANITIZERS is ON but compiler '${CMAKE_CXX_COMPILER_ID}' is not supported."
     )
 endif()
