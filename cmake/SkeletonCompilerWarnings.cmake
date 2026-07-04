@@ -20,13 +20,7 @@ if(SKELETON_ENABLE_COMPILER_WARNINGS)
     if(CMAKE_CXX_COMPILER_ID MATCHES "^(AppleClang|Clang|GNU)$")
         target_compile_options(
             Skeleton_CompilerWarnings
-            INTERFACE
-                -Wall
-                -Wextra
-                -Wpedantic
-                -Wconversion
-                -Wshadow
-                -Wold-style-cast
+            INTERFACE -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wold-style-cast
         )
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         target_compile_options(
