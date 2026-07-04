@@ -1,8 +1,9 @@
 __pycache__/
 .cache/
 .vscode/
-build/
+build*/
 install/
 user_test/
+.gdb_history
 CMakeUserPresets.json
 core*
