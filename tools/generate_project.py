@@ -42,7 +42,13 @@ def remove_skips(src):
   if skip:
     raise ValueError("Reached end of file while looking for SKIP_END")
 
-  return "\n".join(dst_lines)
+  result = "\n".join(dst_lines)
+  # splitlines() drops the final line terminator; restore it so generated
+  # files keep a trailing newline (POSIX text files, formatters, and linters
+  # expect one).
+  if src.endswith("\n"):
+    result += "\n"
+  return result
 
 def transform_text(src, output_name):
   return (
