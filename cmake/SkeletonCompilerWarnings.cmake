@@ -22,7 +22,14 @@ if(SKELETON_ENABLE_COMPILER_WARNINGS)
             Skeleton_CompilerWarnings
             INTERFACE -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Wold-style-cast
         )
-    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    endif()
+    if(CMAKE_CXX_COMPILER_ID MATCHES "^GNU$")
+        target_compile_options(
+            Skeleton_CompilerWarnings
+            INTERFACE -Wno-maybe-uninitialized
+        )
+    endif()
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
         target_compile_options(
             Skeleton_CompilerWarnings
             INTERFACE
