@@ -9,6 +9,7 @@
             "installDir": "${sourceDir}/install",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "CMAKE_CXX_SCAN_FOR_MODULES": "OFF",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "SKELETON_BUILD_DOCUMENTATION": "ON",
                 "SKELETON_BUILD_EXAMPLES": "ON",
@@ -18,12 +19,13 @@
             }
         },
         {
-            "name": "sanitizer-tests",
-            "displayName": "Sanitizer tests",
+            "name": "sanitizers",
+            "displayName": "Sanitizers",
             "description": "Build unit tests with sanitizers (requires GCC or Clang)",
             "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CXX_SCAN_FOR_MODULES": "OFF",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "SKELETON_BUILD_EXAMPLES": "ON",
                 "SKELETON_BUILD_UNIT_TESTS": "ON",
