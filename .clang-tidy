@@ -1,28 +1,57 @@
 WarningsAsErrors: '*'
 
-HeaderFilterRegex: 'src/skeleton/.*'
+HeaderFilterRegex: 'examples/.*|src/.*|tests/.*'
 
 Checks: '
-  abseil-*
+  abseil-*,
+  boost-*,
   bugprone-*,
   -bugprone-easily-swappable-parameters,
   -bugprone-exception-escape,
+  -bugprone-reserved-identifier,
+  -bugprone-standalone-empty,
+  concurrency-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-c-arrays,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
   google-*,
   -google-readability-todo,
+  -google-upgrade-googletest-case,
   llvm-include-order,
   llvm-namespace-comment,
+  misc-*,
+  -misc-include-cleaner,
+  -misc-use-anonymous-namespace,
+  modernize-*,
+  -modernize-type-traits,
+  -modernize-use-designated-initializers,
+  -modernize-use-nodiscard,
+  -modernize-use-std-numbers,
+  -modernize-use-std-print,
   performance-*,
   -performance-enum-size,
+  portability-*,
   readability-*,
+  -readability-container-contains,
   -readability-container-data-pointer,
   -readability-identifier-length,
   -readability-implicit-bool-conversion,
   -readability-magic-numbers,
+  -readability-math-missing-parentheses,
   -readability-named-parameter,
   -readability-simplify-boolean-expr,
+  -readability-static-accessed-through-instance,
 '
 
 CheckOptions:
+  - key:    misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value:  'true'
+
+  - key:    modernize-use-trailing-return-type.TransformLambdas
+    value:  'none'
+
   - key:    readability-braces-around-statements.ShortStatementLines
     value:  '1'
 
@@ -60,7 +89,7 @@ CheckOptions:
   - key: readability-identifier-naming.MacroDefinitionCase
     value: UPPER_CASE
   - key: readability-identifier-naming.MacroDefinitionIgnoredRegexp
-    value: '^[A-Z]+(_[A-Z]+)*_$'
+    value: '^[A-Z]+(_[A-Z0-9]+)*_$'
   - key:    readability-identifier-naming.MemberCase
     value:  'lower_case'
   - key:    readability-identifier-naming.MethodCase

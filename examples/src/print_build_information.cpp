@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-int main()
+auto main() -> int
 {
     std::cout << skeleton::BuildInformation() << "\n";
     return 0;

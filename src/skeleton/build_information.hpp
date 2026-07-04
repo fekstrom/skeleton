@@ -7,19 +7,19 @@ namespace skeleton
 {
 
 /// @return The `major` component of the Skeleton version.
-int VersionMajor();
+auto VersionMajor() -> int;
 
 /// @return The `minor` component of the Skeleton version.
-int VersionMinor();
+auto VersionMinor() -> int;
 
 /// @return The `patch` component of the Skeleton version.
-int VersionPatch();
+auto VersionPatch() -> int;
 
 /// @return The Skeleton version, as a string.
-std::string Version();
+auto Version() -> std::string;
 
 /// @return A summary of build information for Skeleton.
-std::string BuildInformation();
+auto BuildInformation() -> std::string;
 
 } // namespace skeleton
 

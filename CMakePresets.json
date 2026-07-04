@@ -19,6 +19,23 @@
             }
         },
         {
+            "name": "clang-tidy",
+            "displayName": "Clang Tidy",
+            "description": "Build with Clang Tidy",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_CLANG_TIDY": "clang-tidy-20;--allow-no-checks",
+                "CMAKE_CXX_COMPILER": "clang++-20",
+                "CMAKE_CXX_SCAN_FOR_MODULES": "OFF",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "SKELETON_BUILD_EXAMPLES": "ON",
+                "SKELETON_BUILD_UNIT_TESTS": "ON",
+                "SKELETON_ENABLE_COMPILER_WARNINGS": "ON",
+                "SKELETON_WARNINGS_AS_ERRORS": "ON"
+            }
+        },
+        {
             "name": "sanitizers",
             "displayName": "Sanitizers",
             "description": "Build unit tests with sanitizers (requires GCC or Clang)",
