@@ -4,10 +4,68 @@ on:
   - push
 
 jobs:
-  dev:
+  build-docker-image:
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Log in to the GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push the CI image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: docker/Dockerfile
+        push: true
+        tags: ghcr.io/${{ github.repository_owner }}/skeleton/ci:latest
+
+  build-and-test-linux:
+    needs: build-docker-image
+
+    runs-on: ubuntu-24.04
+
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/skeleton/ci:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+    - uses: actions/checkout@v7
+
+    # Dependencies and CMAKE_PREFIX_PATH are baked into the CI image.
+    - name: Build
+      run: |
+        cmake --preset dev -D CMAKE_BUILD_TYPE=RelWithDebInfo -D SKELETON_BUILD_DOCUMENTATION=OFF -D SKELETON_ENABLE_INSTALL=OFF
+        cmake --build build --config RelWithDebInfo
+
+    - name: Check that install is disabled
+      run: |
+        cmake --install build --config RelWithDebInfo --prefix install
+        python3 -c "import os; assert not os.path.exists('install'), 'install exists even though ENABLE_INSTALL=OFF';"
+
+    - name: Test
+      run: |
+        ctest --test-dir build --build-config RelWithDebInfo --output-on-failure
+
+    - name: User test
+      run: |
+        cmake -P tools/user_test.cmake
+
+  build-and-test-windows-macos:
     strategy:
       matrix:
-        runner: [ubuntu-22.04, windows-2022, macos-14]
+        runner: [windows-2022, macos-14]
 
     runs-on: ${{ matrix.runner }}
 
