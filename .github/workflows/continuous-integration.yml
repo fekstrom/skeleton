@@ -64,6 +64,11 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
+    - name: Install CMake
+      uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v3.4.4
+      with:
+        cmakeVersion: "4.2.3"
+
     - name: Cache dependencies
       id: cache-dependencies
       uses: actions/cache@v4
@@ -113,6 +118,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v7
+
+    - name: Install CMake
+      uses: lukka/get-cmake@f5b8fbb4d77cec1acc5a5f9f0df4beffaf5d98d9 # v3.4.4
+      with:
+        cmakeVersion: "4.2.3"
 
     - name: Create directories
       run: |
