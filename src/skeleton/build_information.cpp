@@ -7,22 +7,22 @@
 namespace skeleton
 {
 
-int VersionMajor()
+auto VersionMajor() -> int
 {
     return SKELETON_VERSION_MAJOR +0;
 }
 
-int VersionMinor()
+auto VersionMinor() -> int
 {
     return SKELETON_VERSION_MINOR +0;
 }
 
-int VersionPatch()
+auto VersionPatch() -> int
 {
     return SKELETON_VERSION_PATCH +0;
 }
 
-std::string Version()
+auto Version() -> std::string
 {
     auto ss = std::ostringstream{};
     ss << VersionMajor() << "."
@@ -31,7 +31,7 @@ std::string Version()
     return ss.str();
 }
 
-std::string BuildInformation()
+auto BuildInformation() -> std::string
 {
     auto ss = std::ostringstream{};
     ss << "Skeleton Version " << Version();
