@@ -15,7 +15,7 @@ jobs:
       DEPENDENCIES_DIR: ${{ github.workspace }}/../dependencies
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Create dependencies directory
       run: |
@@ -66,7 +66,7 @@ jobs:
       MY_PROJECT_DIR: ${{ github.workspace }}/../my_project
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Create directories
       run: |
@@ -117,7 +117,7 @@ jobs:
   cmake-formatting:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Install gersemi
       run: |
