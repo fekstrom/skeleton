@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+
+FAILED=0
+
+mapfile -t -d '' CMAKE_FILES_TO_CHECK < <(git diff --cached --name-only --diff-filter=d -z | grep -zE '(CMakeLists\.txt|\.cmake|\.cmake\.in)$')
+if [ ${#CMAKE_FILES_TO_CHECK[@]} -gt 0 ]; then
+    python3 "${PROJECT_ROOT}/tools/cmake_formatting.py" --quiet "${CMAKE_FILES_TO_CHECK[@]}" || FAILED=1
+fi
+
+if [ "${FAILED}" -ne 0 ]; then
+    echo ""
+    echo "Commit aborted by pre-commit hook."
+fi
+
+exit ${FAILED}
