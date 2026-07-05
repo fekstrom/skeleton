@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 4.2)
 
 project(Skeleton VERSION 0.0.1)
 
