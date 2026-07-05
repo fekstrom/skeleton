@@ -18,37 +18,65 @@ function(execute_command ARG_WORKING_DIRECTORY) # Put the command in ARGN
     endif()
 endfunction()
 
-execute_command(
-    ${SKELETON_ROOT}
-    ${CMAKE_COMMAND} -E make_directory ${USER_TEST_DIR}
-)
+execute_command(${SKELETON_ROOT} ${CMAKE_COMMAND} -E make_directory ${USER_TEST_DIR})
 
 # Build and install Skeleton.
 execute_command(
     ${USER_TEST_DIR}
-    ${CMAKE_COMMAND} -S .. -B build -D CMAKE_BUILD_TYPE=Release
+    ${CMAKE_COMMAND}
+    -S
+    ..
+    -B
+    build
+    -D
+    CMAKE_BUILD_TYPE=Release
 )
 execute_command(
     ${USER_TEST_DIR}
-    ${CMAKE_COMMAND} --build build --config Release
+    ${CMAKE_COMMAND}
+    --build
+    build
+    --config
+    Release
 )
 execute_command(
     ${USER_TEST_DIR}
-    ${CMAKE_COMMAND} --install build --prefix install
+    ${CMAKE_COMMAND}
+    --install
+    build
+    --prefix
+    install
 )
 
 # Build examples against the installed Skeleton.
 execute_command(
     ${USER_TEST_DIR}
-    ${CMAKE_COMMAND} -S ../examples -B examples -D CMAKE_BUILD_TYPE=Release -D CMAKE_PREFIX_PATH=${USER_TEST_DIR}/install
+    ${CMAKE_COMMAND}
+    -S
+    ../examples
+    -B
+    examples
+    -D
+    CMAKE_BUILD_TYPE=Release
+    -D
+    CMAKE_PREFIX_PATH=${USER_TEST_DIR}/install
 )
 execute_command(
     ${USER_TEST_DIR}
-    ${CMAKE_COMMAND} --build examples --config Release
+    ${CMAKE_COMMAND}
+    --build
+    examples
+    --config
+    Release
 )
 execute_command(
     ${USER_TEST_DIR}
-    ${CMAKE_CTEST_COMMAND} --test-dir examples --build-config Release --output-on-failure
+    ${CMAKE_CTEST_COMMAND}
+    --test-dir
+    examples
+    --build-config
+    Release
+    --output-on-failure
 )
 
 message(STATUS "Success!")

@@ -125,5 +125,5 @@ jobs:
 
     - name: Check formatting
       run: |
-        gersemi --check --diff .
+        ./tools/cmake_formatting.py --diff
   # SKELETON_GENERATE_PROJECT_SKIP_END
