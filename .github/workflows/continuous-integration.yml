@@ -17,26 +17,25 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
-    - name: Create dependencies directory
-      run: |
-        mkdir -p ${{ env.DEPENDENCIES_DIR }}
+    - name: Cache dependencies
+      id: cache-dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.DEPENDENCIES_DIR }}
+        key: dependencies-${{ matrix.runner }}-${{ hashFiles('tools/install_dependencies_from_source.cmake') }}
 
-    - name: Install Catch2
-      working-directory: ${{ env.DEPENDENCIES_DIR }}
+    - name: Install dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       run: |
-        git clone https://github.com/catchorg/Catch2.git
-        cd Catch2
-        git checkout v3.6.0
-        cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
-        cmake --build build --config Release
-        cmake --install build --prefix ${{ env.DEPENDENCIES_DIR }}/install
+        cmake -D INSTALL_DIR=${{ env.DEPENDENCIES_DIR }} -P tools/install_dependencies_from_source.cmake
+        cmake -E rm -rf ${{ env.DEPENDENCIES_DIR }}/stage
 
     - name: Build
       run: |
         cmake --preset dev -D CMAKE_BUILD_TYPE=RelWithDebInfo -D SKELETON_BUILD_DOCUMENTATION=OFF -D SKELETON_ENABLE_INSTALL=OFF
         cmake --build build --config RelWithDebInfo
       env:
-        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install
+        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}
 
     - name: Check that install is disabled
       run: |
@@ -51,7 +50,7 @@ jobs:
       run: |
         cmake -P tools/user_test.cmake
       env:
-        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install
+        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}
 
   # SKELETON_GENERATE_PROJECT_SKIP_BEGIN
   generate-project:
@@ -70,18 +69,20 @@ jobs:
 
     - name: Create directories
       run: |
-        mkdir -p ${{ env.DEPENDENCIES_DIR }}
-        mkdir -p ${{ env.MY_PROJECT_DIR }}
+        cmake -E make_directory ${{ env.MY_PROJECT_DIR }}
 
-    - name: Install Catch2
-      working-directory: ${{ env.DEPENDENCIES_DIR }}
+    - name: Cache dependencies
+      id: cache-dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.DEPENDENCIES_DIR }}
+        key: dependencies-${{ matrix.runner }}-${{ hashFiles('tools/install_dependencies_from_source.cmake') }}
+
+    - name: Install dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       run: |
-        git clone https://github.com/catchorg/Catch2.git
-        cd Catch2
-        git checkout v3.6.0
-        cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
-        cmake --build build --config Release
-        cmake --install build --prefix ${{ env.DEPENDENCIES_DIR }}/install
+        cmake -D INSTALL_DIR=${{ env.DEPENDENCIES_DIR }} -P tools/install_dependencies_from_source.cmake
+        cmake -E rm -rf ${{ env.DEPENDENCIES_DIR }}/stage
 
     - name: Generate MyProject
       run: |
@@ -93,7 +94,7 @@ jobs:
         cmake --preset dev -D CMAKE_BUILD_TYPE=RelWithDebInfo -D MY_PROJECT_BUILD_DOCUMENTATION=OFF -D MY_PROJECT_ENABLE_INSTALL=OFF
         cmake --build build --config RelWithDebInfo
       env:
-        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install
+        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}
 
     - name: Check that install is disabled
       working-directory: ${{ env.MY_PROJECT_DIR }}/my_project
@@ -111,7 +112,7 @@ jobs:
       run: |
         cmake -P tools/user_test.cmake
       env:
-        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}/install
+        CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}
   # SKELETON_GENERATE_PROJECT_SKIP_END
   # SKELETON_GENERATE_PROJECT_SKIP_BEGIN
   cmake-formatting:
