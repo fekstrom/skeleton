@@ -4,34 +4,23 @@ on:
   - push
 
 jobs:
-  build-docker-image:
+  cmake-formatting:
     runs-on: ubuntu-24.04
 
-    permissions:
-      contents: read
-      packages: write
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/skeleton/ci:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - uses: actions/checkout@v7
 
-    - name: Log in to the GitHub Container Registry
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Build and push the CI image
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: docker/Dockerfile
-        push: true
-        tags: ghcr.io/${{ github.repository_owner }}/skeleton/ci:latest
+    - name: Check formatting
+      run: |
+        ./tools/cmake_formatting.py --diff
 
   build-and-test-linux:
-    needs: build-docker-image
-
     runs-on: ubuntu-24.04
 
     container:
@@ -171,18 +160,4 @@ jobs:
         cmake -P tools/user_test.cmake
       env:
         CMAKE_PREFIX_PATH: ${{ env.DEPENDENCIES_DIR }}
-  # SKELETON_GENERATE_PROJECT_SKIP_END
-  # SKELETON_GENERATE_PROJECT_SKIP_BEGIN
-  cmake-formatting:
-    runs-on: ubuntu-24.04
-    steps:
-    - uses: actions/checkout@v7
-
-    - name: Install gersemi
-      run: |
-        pipx install gersemi
-
-    - name: Check formatting
-      run: |
-        ./tools/cmake_formatting.py --diff
   # SKELETON_GENERATE_PROJECT_SKIP_END
