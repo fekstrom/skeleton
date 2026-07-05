@@ -71,7 +71,7 @@ jobs:
 
     - name: Cache dependencies
       id: cache-dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ${{ env.DEPENDENCIES_DIR }}
         key: dependencies-${{ matrix.runner }}-${{ hashFiles('tools/install_dependencies_from_source.cmake') }}
@@ -130,7 +130,7 @@ jobs:
 
     - name: Cache dependencies
       id: cache-dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ${{ env.DEPENDENCIES_DIR }}
         key: dependencies-${{ matrix.runner }}-${{ hashFiles('tools/install_dependencies_from_source.cmake') }}
